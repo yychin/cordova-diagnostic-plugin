@@ -49,7 +49,11 @@ var Diagnostic_External_Storage = (function(){
      * @param {Function} errorCallback - function to call on failure to request authorisation.
      */
     Diagnostic_External_Storage.requestExternalStorageAuthorization = function(successCallback, errorCallback){
-        Diagnostic.requestRuntimePermission(successCallback, errorCallback, Diagnostic.permission.READ_EXTERNAL_STORAGE);
+        return cordova.exec(successCallback,
+    		errorCallback,
+    		'Diagnostic_External_Storage',
+    		'requestExternalStorageAuthorization',
+    		[]);
     };
 
     /**
