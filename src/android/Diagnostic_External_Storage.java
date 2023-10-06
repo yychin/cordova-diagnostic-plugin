@@ -119,7 +119,7 @@ public class Diagnostic_External_Storage extends CordovaPlugin{
             if(action.equals("getExternalSdCardDetails")) {
                 this.getExternalSdCardDetails();
             } else if(action.equals("requestExternalStorageAuthorization")){
-                this.requestExternalStorageAuthorization(); 
+                this.requestExternalStorageAuthorization(callbackContext); 
             } else {
                 diagnostic.handleError("Invalid action");
                 return false;
@@ -139,9 +139,10 @@ public class Diagnostic_External_Storage extends CordovaPlugin{
      * Internals
      ***********/
 
-    protected void requestExternalStorageAuthorization() throws Exception{
+    protected void requestExternalStorageAuthorization(CallbackContext callbackContext) throws Exception{
 	if(Build.VERSION.SDK_INT >= 33) {
-		diagnostic.requestRuntimePermissions(Diagnostic.instance.stringArrayToJsonArray(storagePermissions));
+		int requestId = Diagnostic.instance.storeContextByRequestId(callbackContext);
+		diagnostic._requestRuntimePermissions(Diagnostic.instance.stringArrayToJsonArray(storagePermissions), requestId);
 	}else{
 		diagnostic.requestRuntimePermission("READ_EXTERNAL_STORAGE");
 	}
