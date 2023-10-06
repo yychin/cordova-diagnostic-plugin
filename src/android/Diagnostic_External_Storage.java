@@ -141,7 +141,7 @@ public class Diagnostic_External_Storage extends CordovaPlugin{
 	if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
 		diagnostic.requestRuntimePermission("READ_MEDIA_IMAGES");
 	}else{
-		diagnostic.requestRuntimePermission("READ_MEDIA_IMAGES");
+		diagnostic.requestRuntimePermission("READ_EXTERNAL_STORAGE");
 	}
     }
     protected void getExternalSdCardDetails() throws Exception{
