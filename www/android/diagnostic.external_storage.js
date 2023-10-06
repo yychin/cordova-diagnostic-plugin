@@ -54,6 +54,7 @@ var Diagnostic_External_Storage = (function(){
         }
         
         return cordova.exec(onSuccess,
+            errorCallback,
     		'Diagnostic_External_Storage',
     		'requestExternalStorageAuthorization',
     		[]);
