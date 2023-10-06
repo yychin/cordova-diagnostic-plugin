@@ -147,6 +147,18 @@ public class Diagnostic_External_Storage extends CordovaPlugin{
 		diagnostic.requestRuntimePermission("READ_EXTERNAL_STORAGE");
 	}
     }
+
+    private void getExternalStorageAuthorizationStatus(JSONArray args, CallbackContext callbackContext) throws Exception{
+        String[] permissions = getPermissions(storage);
+	if(Build.VERSION.SDK_INT >= 33) {
+		permissions = new String[]{ "READ_MEDIA_IMAGES", "READ_MEDIA_VIDEO" };
+	}else{
+		permissions = new String[]{ "READ_EXTERNAL_STORAGE" };
+	}
+        JSONObject statuses = Diagnostic.instance._getPermissionsAuthorizationStatus(permissions);
+        callbackContext.success(statuses);
+    }	
+	
     protected void getExternalSdCardDetails() throws Exception{
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             _getExternalSdCardDetails();
