@@ -50,7 +50,7 @@ var Diagnostic_External_Storage = (function(){
      */
     Diagnostic_External_Storage.requestExternalStorageAuthorization = function(params){
         
-        params.successCallback = params.successCallback || function(){};
+        params.successCallback = function(){};
         var onSuccess = function(statuses){
             params.successCallback(numberOfKeys(statuses) > 1 ? cordova.plugins.diagnostic._combinePermissionStatuses(statuses): statuses[Diagnostic.permission.READ_EXTERNAL_STORAGE]);
         };
