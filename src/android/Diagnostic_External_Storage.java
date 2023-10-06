@@ -57,6 +57,8 @@ public class Diagnostic_External_Storage extends CordovaPlugin{
      */
     public static final String TAG = "Diagnostic_External_Storage";
 
+    protected static String[] storagePermissions = new String[]{ "READ_MEDIA_IMAGES", "READ_MEDIA_VIDEO" };
+
 
     /*************
      * Variables *
@@ -139,7 +141,7 @@ public class Diagnostic_External_Storage extends CordovaPlugin{
 
     protected void requestExternalStorageAuthorization() throws Exception{
 	if(Build.VERSION.SDK_INT >= 33) {
-		diagnostic.requestRuntimePermission("READ_MEDIA_IMAGES");
+		diagnostic.requestRuntimePermissions(Diagnostic.instance.stringArrayToJsonArray(storagePermissions));
 	}else{
 		diagnostic.requestRuntimePermission("READ_EXTERNAL_STORAGE");
 	}
