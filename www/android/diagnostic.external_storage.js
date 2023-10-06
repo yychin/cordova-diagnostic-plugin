@@ -63,8 +63,17 @@ var Diagnostic_External_Storage = (function(){
      * This callback function is passed a single string parameter which defines the current authorisation status as a value in cordova.plugins.diagnostic.permissionStatus.
      * @param {Function} errorCallback - function to call on failure to request authorisation status.
      */
-    Diagnostic_External_Storage.getExternalStorageAuthorizationStatus = function(successCallback, errorCallback){
-        Diagnostic.getPermissionAuthorizationStatus(successCallback, errorCallback, Diagnostic.permission.READ_EXTERNAL_STORAGE);
+    Diagnostic_External_Storage.getExternalStorageAuthorizationStatus = function(params){
+        params.successCallback = params.successCallback || function(){};
+        var onSuccess = function(statuses){
+            params.successCallback(numberOfKeys(statuses) > 1 ? cordova.plugins.diagnostic._combinePermissionStatuses(statuses): statuses[Diagnostic.permission.READ_EXTERNAL_STORAGE]);
+        };
+
+        return cordova.exec(onSuccess,
+            params.errorCallback,
+            'Diagnostic_External_Storage',
+            'getExternalStorageAuthorizationStatus',
+            []);
     };
 
     /**
