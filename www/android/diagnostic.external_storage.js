@@ -83,11 +83,16 @@ var Diagnostic_External_Storage = (function(){
      * This callback function is passed a single boolean parameter which is TRUE if the app currently has runtime authorisation to external storage.
      * @param {Function} errorCallback - function to call on failure to request authorisation status.
      */
-    Diagnostic_External_Storage.isExternalStorageAuthorized = function(successCallback, errorCallback){
-        function onSuccess(status){
-            successCallback(status === Diagnostic.permissionStatus.GRANTED);
-        }
-        Diagnostic_External_Storage.getExternalStorageAuthorizationStatus(onSuccess, errorCallback);
+    Diagnostic_External_Storage.isExternalStorageAuthorized = function(params){
+       params.successCallback = function(){};
+        var onSuccess = function(status){
+            params.successCallback(status === Diagnostic.permissionStatus.GRANTED);
+        };
+
+        Diagnostic_External_Storage.getExternalStorageAuthorizationStatus({
+            successCallback: onSuccess,
+            errorCallback: params.errorCallback,
+        });
     };
 
     /**
