@@ -50,7 +50,7 @@ var Diagnostic_External_Storage = (function(){
      */
     Diagnostic_External_Storage.requestExternalStorageAuthorization = function(successCallback, errorCallback){
         function onSuccess(statuses){
-            successCallback(combineLocationStatuses(numberOfKeys(statuses) > 1 ? cordova.plugins.diagnostic._combinePermissionStatuses(statuses): statuses[Diagnostic.permission.READ_EXTERNAL_STORAGE]));
+            successCallback(numberOfKeys(statuses) > 1 ? cordova.plugins.diagnostic._combinePermissionStatuses(statuses): statuses[Diagnostic.permission.READ_EXTERNAL_STORAGE]);
         }
         
         return cordova.exec(onSuccess,
@@ -117,6 +117,14 @@ var Diagnostic_External_Storage = (function(){
             'getExternalSdCardDetails',
             []);
     };
+
+    function numberOfKeys(obj){
+        var count = 0;
+        for(var k in obj){
+            count++;
+        }
+        return count;
+    }
 
     return Diagnostic_External_Storage;
 });
