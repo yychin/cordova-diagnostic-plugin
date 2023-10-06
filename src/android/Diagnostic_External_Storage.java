@@ -151,7 +151,7 @@ public class Diagnostic_External_Storage extends CordovaPlugin{
     }
 
     private void getExternalStorageAuthorizationStatus(CallbackContext callbackContext) throws Exception{
-        String[] permissions = getPermissions(storage);
+        String[] permissions;
 	if(Build.VERSION.SDK_INT >= 33) {
 		permissions = new String[]{ "READ_MEDIA_IMAGES", "READ_MEDIA_VIDEO" };
 	}else{
